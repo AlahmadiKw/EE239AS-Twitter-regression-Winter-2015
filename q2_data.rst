@@ -84,13 +84,13 @@ Question 2
 
 |img3| |img4|
 
-.. |img1| image:: ignore/twt_cnt_over_hours.png
+.. |img1| image:: img/twt_cnt_over_hours.png
    :height: 300
-.. |img2| image:: ignore/twt_cnt_over_ret_count.png
+.. |img2| image:: img/twt_cnt_over_ret_count.png
    :height: 300
-.. |img3| image:: ignore/twt_cnt_over_flwr_cnt.png
+.. |img3| image:: img/twt_cnt_over_flwr_cnt.png
    :height: 300
-.. |img4| image:: ignore/twt_cnt_over_max_flwrs.png
+.. |img4| image:: img/twt_cnt_over_max_flwrs.png
    :height: 300
 .. +------------------+--------------------+---------------------+-----------------------------+------+
 .. | number of tweets | number of retweets | number of followers | maximum number of followers | hour |
