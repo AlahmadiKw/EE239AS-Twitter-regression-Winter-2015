@@ -62,17 +62,17 @@ Question 2
 * We first plot the number of tweets across each of the four input
   variables in `1. Problem Formulation`_ as shown below:
 
-|img1| |img2|
+|img5| |img6|
 
-|img3| |img4|
+|img7| |img8|
 
-.. |img1| image:: img/twt_cnt_max_hour_outlier.png
+.. |img5| image:: img/twt_cnt_max_hour_outlier.png
    :height: 300
-.. |img2| image:: img/twt_cnt_ret_cnt_outlier.png
+.. |img6| image:: img/twt_cnt_ret_cnt_outlier.png
    :height: 300
-.. |img3| image:: img/twt_cnt_num_flwrs_outlier.png
+.. |img7| image:: img/twt_cnt_num_flwrs_outlier.png
    :height: 300
-.. |img4| image:: img/twt_cnt_max_flwrs_outlier.png
+.. |img8| image:: img/twt_cnt_max_flwrs_outlier.png
    :height: 300
 
 * From the figure above, it is clear that the exists one significant
@@ -92,6 +92,8 @@ Question 2
    :height: 300
 .. |img4| image:: img/twt_cnt_over_max_flwrs.png
    :height: 300
+
+
 .. +------------------+--------------------+---------------------+-----------------------------+------+
 .. | number of tweets | number of retweets | number of followers | maximum number of followers | hour |
 .. +==================+====================+=====================+=============================+======+
