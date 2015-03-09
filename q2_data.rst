@@ -66,13 +66,13 @@ Question 2
 
 |img3| |img4|
 
-.. |img1| image:: ignore/twt_cnt_max_hour_outlier.png
+.. |img1| image:: img/twt_cnt_max_hour_outlier.png
    :height: 300
-.. |img2| image:: ignore/twt_cnt_ret_cnt_outlier.png
+.. |img2| image:: img/twt_cnt_ret_cnt_outlier.png
    :height: 300
-.. |img3| image:: ignore/twt_cnt_num_flwrs_outlier.png
+.. |img3| image:: img/twt_cnt_num_flwrs_outlier.png
    :height: 300
-.. |img4| image:: ignore/twt_cnt_max_flwrs_outlier.png
+.. |img4| image:: img/twt_cnt_max_flwrs_outlier.png
    :height: 300
 
 * From the figure above, it is clear that the exists one significant
