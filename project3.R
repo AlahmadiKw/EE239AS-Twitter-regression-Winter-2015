@@ -45,3 +45,24 @@ plot(dat$max_flwrs, dat$twt_count, type="p", lwd=1, col="black", pch=20,
 # create predictor
 fit <- lm(twt_count ~ hours + flwr_cnt + ret_cnt + max_flwrs, dat)  # 1st order linear model 
 summary(fit)
+
+# residual plots
+# Good model must have a randomly distributed redisual plot. If there is a pattern
+# in the plot, the model must be reconsidered 
+plot(fit$fit, fit$res, ylab="Residuals", main="residuals against estimated cost")
+
+# leverage 
+# outlier test and normality
+jack <- rstudent(fit)
+plot(jack, ylab="Jacknife Residuals", main="Jacknife Residuals")
+
+# influential obseration test 
+cook <- cooks.distance(fit)
+plot(cook,ylab="Coocs distance")
+influen <- match(cook[cook>1],cook)
+influenctial_data <- dat[influen,]
+
+# assesing normality and outliers as well
+qqnorm(fit$res, ylab="Raw Residuals")
+qqline(fit$res)
+hist(fit$res,10)
