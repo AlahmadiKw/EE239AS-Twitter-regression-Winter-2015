@@ -116,7 +116,7 @@ Question 2
 
 * First, we assume that there is a significant relationship between the inputs
   and the output. The t-values and p-values should give us clues on wether our
-  assumptoins are valid or not. analysing and interpreting the t-value and
+  assumptoins are valid or not. Analysing and interpreting the t-value and
   p-value are as folows:
 
   * The p-value for each feature tests the null hypothesis that the regression
@@ -155,33 +155,43 @@ Question 2
   Multiple R-squared:  0.996, Adjusted R-squared:  0.9952
   F-statistic:  1188 on 4 and 19 DF,  p-value: < 2.2e-16
 
-* **hours**:
-  The t value is considered very small and the p value is very large (>> .05).
-  It is clear that a 1st order regression line is not a good fit. Or it may not
-  be significant variable at all. This makes sense considering the popularity
-  is more dependant on the specific date the event at rather than the hour.
+* Explanation of variables significance:
 
-* **Followers Count**:
-  The t-value is a bit large but not too large and the p-value is slightly less
-  than 0.05. This is still a good sign that the variable has significance and
-  should be used.
+  * **hours**:
+    The t value is considered very small and the p value is very large (>> .05).
+    It is clear that a 1st order regression line is not a good fit. Or it may not
+    be significant variable at all. This makes sense considering the popularity
+    is more dependant on the specific date the event at rather than the hour.
 
-* **Retweet Count**:
-  Not only the t-value is large and the p-value << 0.05, the extremely strong
-  relationship is already self-evident in the plot of tweet count over retweet
-  count.
+  * **Followers Count**:
+    The t-value is a bit large but not too large and the p-value is slightly less
+    than 0.05. This is still a good sign that the variable has significance and
+    should be used.
 
-* **Maximum number of followers**:
+  * **Retweet Count**:
+    Not only the t-value is large and the p-value << 0.05, the extremely strong
+    relationship is already self-evident in the plot of tweet count over retweet
+    count.
 
+  * **Maximum number of followers**:
+    t-value is negative and the p-value = 0.27 indicates the variable is not that
+    significant.
+
+* R-squared statistic measures how successful the fit is in explaining the
+  variation of the data [3]_. A high value of this statistic indicates the data
+  are good fit for the model. However, how good the value is is highly dependant
+  on the application and often can be misleading. In our case R-squared = 0.996
+  which is really high. However, based on the t-values and p-values, the model
+  with the current 4 variables is not a good fit and should be reconsidered.
 
 
 .. [1] `How to Interpret Regression Analysis Results: P-values and Coefficients`_
 .. [2] `Interpreting Regression Output`_
+.. [3] `Goodness-of-Fit Statistics`_
 
 .. _`How to Interpret Regression Analysis Results: P-values and Coefficients`: http://blog.minitab.com/blog/adventures-in-statistics/how-to-interpret-regression-analysis-results-p-values-and-coefficients
-
 .. _`Interpreting Regression Output`: http://dss.princeton.edu/online_help/analysis/interpreting_regression.htm#ptse
-
+.. _`Goodness-of-Fit Statistics`: http://web.maths.unsw.edu.au/~adelle/Garvan/Assays/GoodnessOfFit.html
 
 
 .. +------------------+--------------------+---------------------+-----------------------------+------+

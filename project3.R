@@ -12,29 +12,35 @@ rm(list=ls())
 dat <- read.table("for_mohammad_only/statistics_#NFL.csv", header=TRUE, sep=',')
 
 # sort by hours (24 hours)
-dat <- dat[order(dat$from),]
+dat <- dat[order(dat$hr),]
 hours <- dat$hr 
+date_hr <- dat$date_hr
 
 # remove unnessesarry columns
-dat <- data.frame(twt_count = dat$twt_count, hw = dat$from, flwr_cnt = dat$flwrs_count, ret_cnt = dat$ret_cnt, max_flwrs = dat$max_flwrs, hours = dat$hr)
+# dat <- data.frame(twt_count = dat$twt_count, flwr_cnt = dat$flwrs_count, ret_cnt = dat$ret_cnt, max_flwrs = dat$max_flwrs, hours = dat$hr)
 
 # assign hr as factors 
 # dat$hours <- as.factor(dat$hours)
 
 # remove outliers
-dat <- dat[ which(dat$flwr_cnt<1e8), ]
+dat <- dat[ which(dat$flwrs_count<1e8), ]
+# dat <- dat[ which(dat$hours!=12), ]
+# dat <- dat[ which(dat$hours!=15), ]
+# dat <- dat[ which(dat$hours!=14), ]
+# dat <- dat[ which(dat$hours!=16), ]
 
-dat <- aggregate(. ~ hours, 
+dat <- aggregate(. ~ hr, 
           mean, 
           data = dat)
 
 # plot scatter 
-plot(dat$flwr_cnt, dat$twt_count, type="p", lwd=1, col="black", pch=20,
+plot(dat$flwrs_count, dat$twt_count, type="p", lwd=1, col="black", pch=20,
      main="Tweet Count over the number of Followers", ylab="twt_count", xlab="flwrs_count",
      yaxt="n")
-plot(dat$hours, dat$twt_count, type="p", lwd=1, col="black", pch=20,
+plot(dat$hr, dat$twt_count, type="p", lwd=1, col="black", pch=20,
      main="Tweet Count over 24 hrs", ylab="twt_count", xlab="hours",
      yaxt="n")
+# identify(dat$hours, dat$twt_count, labels=dat$hours, atpen=TRUE)
 plot(dat$ret_cnt, dat$twt_count, type="p", lwd=1, col="black", pch=20,
      main="Tweet Count over retweet sum", ylab="twt_count", xlab="total_retweets",
      yaxt="n")
@@ -43,7 +49,7 @@ plot(dat$max_flwrs, dat$twt_count, type="p", lwd=1, col="black", pch=20,
      yaxt="n")
 
 # create predictor
-fit <- lm(twt_count ~ hours + flwr_cnt + ret_cnt + max_flwrs, dat)  # 1st order linear model 
+fit <- lm(twt_count ~  hr + flwrs_count + ret_cnt + max_flwrs, dat)  # 1st order linear model 
 summary(fit)
 
 # residual plots
@@ -59,7 +65,7 @@ plot(jack, ylab="Jacknife Residuals", main="Jacknife Residuals")
 # influential obseration test 
 cook <- cooks.distance(fit)
 plot(cook,ylab="Coocs distance")
-influen <- match(cook[cook>1],cook)
+influen <- match(cook[cook>.2],cook)
 influenctial_data <- dat[influen,]
 
 # assesing normality and outliers as well
