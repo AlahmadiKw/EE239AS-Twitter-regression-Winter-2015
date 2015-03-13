@@ -13,18 +13,19 @@ Question 2
 ----------------------
 
 * Predicting the number of tweets in the next hour based on
-  previous hours data.
+  previous hours data. (the letters between brackerts will be used as shorthands)
 
   - **Output**:
 
-    * Expected number of tweets
+    * [n_twt] Expected number of tweets
 
   - **Input**:
 
-    * Desired hour of expectation
-    * Total number of retweets at that hour
-    * Total number of retweets within that hour
-    * Total number of follows of all users who used the hashtag
+    * [hr] Desired hour of expectation
+    * [n_rt]Total number of retweets at that hour
+    * [n_flr] Total number of follows of all users who used the hashtag
+    * [m_flr] n_ The sum of the maximum number of followers that occured within that
+      hour
 
 2. Data Collection
 ------------------
@@ -93,12 +94,81 @@ Question 2
 .. |img4| image:: img/twt_cnt_over_max_flwrs.png
    :height: 300
 
+4. Regression Model
+-------------------
+
+* We implement a simple linear regression model with one dependant (the output)
+  and four independant variables (the inputs). Our regression model is as follows:
+
+.. math::
+
+  [n_twt] = beta*[hr] + beta'*[n_rt] + beta''*[n_flr] + beta'''*[m_flr]
+
+* where beta, beta', beta'', and beta''' are the regression coefficients
+
+
+5. Analyzing the Regression Model
+---------------------------------
+
+* First, we assume that there is a significant relationship between the inputs
+  and the output. The t-values and p-values should give us clues on wether our
+  assumptoins are valid or not. analysing and interpreting the t-value and p-value
+  are as folows:
+
+  * The p-value for each feature tests the null hypothesis that the regression
+    coefficient is equal to zero (i.e has no effect) [1]_. Hence, a low p-value (< 0.05)
+    indicates that there is indeed a significant relationship between the input and the output.
+
+  * The t statistic is the coefficient divided by the by the stantard error.
+    It can be thought of as a measure of the precision with which the regression
+    coefficient is measured [2]_. Hence, the larger the t-value the more significant
+    our feature is.
+
+* Using the ``summary(fit)`` function in R (fit is the regression model name),
+  we get:
+
+::
+
+  lm(formula = twt_count ~ hours + flwr_cnt + ret_cnt + max_flwrs,
+    data = dat)
+
+  Residuals:
+       Min       1Q   Median       3Q      Max
+  -157.260   -8.063    8.602   22.963   73.506
+
+  Coefficients:
+                Estimate Std. Error t value Pr(>|t|)
+  (Intercept)  7.819e+01  2.727e+01   2.868  0.00985 **
+  hours        6.627e-01  1.476e+00   0.449  0.65858
+  flwr_cnt     5.460e-05  2.607e-05   2.095  0.04985 *
+  ret_cnt      5.061e-01  4.604e-02  10.994 1.12e-09 ***
+  max_flwrs   -5.815e-05  5.118e-05  -1.136  0.26995
+  ---
+  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+  Residual standard error: 47.42 on 19 degrees of freedom
+  Multiple R-squared:  0.996, Adjusted R-squared:  0.9952
+  F-statistic:  1188 on 4 and 19 DF,  p-value: < 2.2e-16
+
+* **hours**:
+  The t value is considered very small and the p value is very large (>> .05).
+  It is clear that a 1st order regression line is not a good fit and hence
+
+
+.. [1] `How to Interpret Regression Analysis Results: P-values and Coefficients`_
+.. [2] `Interpreting Regression Output`_
+
+.. _`How to Interpret Regression Analysis Results: P-values and Coefficients`: http://blog.minitab.com/blog/adventures-in-statistics/how-to-interpret-regression-analysis-results-p-values-and-coefficients
+
+.. _`Interpreting Regression Output`: http://dss.princeton.edu/online_help/analysis/interpreting_regression.htm#ptse
+
+
 
 .. +------------------+--------------------+---------------------+-----------------------------+------+
 .. | number of tweets | number of retweets | number of followers | maximum number of followers | hour |
 .. +==================+====================+=====================+=============================+======+
-.. | 432              | 23                 | 234089              | 11100234                    | 1    |
-.. +------------------+--------------------+---------------------+-----------------------------+------+
+.. | 432              | 23                 | 234089dddddddddddddd| 11100234                    | 1    |
+.. |  sf              | dd                 | dd                  | dd                          | dd   |
 .. | 432              | 23                 | 234089              | 11100234                    | 1    |
 .. +------------------+--------------------+---------------------+-----------------------------+------+
 .. | 432              | 23                 | 234089              | 11100234                    | 1    |
@@ -117,5 +187,6 @@ Question 2
 .. +------------------+--------------------+---------------------+-----------------------------+------+
 .. | 56               | 5                  | 12312               | 346345                      | 23   |
 .. +------------------+--------------------+---------------------+-----------------------------+------+
+
 
 
