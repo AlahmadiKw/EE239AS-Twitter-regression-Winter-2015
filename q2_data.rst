@@ -7,7 +7,8 @@ Question 2
 
 ::
 
-  python was used for data parsing and R Statistical language was used for data and regression analysis
+  python was used for data parsing and R Statistical language was used for data
+  and regression analysis
 
 1. Problem Formulation
 ----------------------
@@ -24,7 +25,7 @@ Question 2
     * [hr] Desired hour of expectation
     * [n_rt]Total number of retweets at that hour
     * [n_flr] Total number of follows of all users who used the hashtag
-    * [m_flr] n_ The sum of the maximum number of followers that occured within that
+    * [m_flr] The sum of the maximum number of followers that occured within that
       hour
 
 2. Data Collection
@@ -98,7 +99,10 @@ Question 2
 -------------------
 
 * We implement a simple linear regression model with one dependant (the output)
-  and four independant variables (the inputs). Our regression model is as follows:
+  and four independant variables (the inputs). The abreviations are described
+  `here`_. Our regression model is as follows:
+
+.. _`here`: `1. Problem Formulation`_
 
 .. math::
 
@@ -112,25 +116,26 @@ Question 2
 
 * First, we assume that there is a significant relationship between the inputs
   and the output. The t-values and p-values should give us clues on wether our
-  assumptoins are valid or not. analysing and interpreting the t-value and p-value
-  are as folows:
+  assumptoins are valid or not. analysing and interpreting the t-value and
+  p-value are as folows:
 
   * The p-value for each feature tests the null hypothesis that the regression
-    coefficient is equal to zero (i.e has no effect) [1]_. Hence, a low p-value (< 0.05)
-    indicates that there is indeed a significant relationship between the input and the output.
+    coefficient is equal to zero (i.e has no effect) [1]_. Hence, a low p-value
+    (< 0.05) indicates that there is indeed a significant relationship between
+    the input and the output.
 
   * The t statistic is the coefficient divided by the by the stantard error.
     It can be thought of as a measure of the precision with which the regression
-    coefficient is measured [2]_. Hence, the larger the t-value the more significant
-    our feature is.
+    coefficient is measured [2]_. Hence, the larger the t-value the more
+    significant our feature is.
 
 * Using the ``summary(fit)`` function in R (fit is the regression model name),
   we get:
 
 ::
 
-  lm(formula = twt_count ~ hours + flwr_cnt + ret_cnt + max_flwrs,
-    data = dat)
+  lm(formula = twt_count ~ hr + flwrs_count + ret_cnt + max_flwrs,
+      data = dat)
 
   Residuals:
        Min       1Q   Median       3Q      Max
@@ -139,8 +144,8 @@ Question 2
   Coefficients:
                 Estimate Std. Error t value Pr(>|t|)
   (Intercept)  7.819e+01  2.727e+01   2.868  0.00985 **
-  hours        6.627e-01  1.476e+00   0.449  0.65858
-  flwr_cnt     5.460e-05  2.607e-05   2.095  0.04985 *
+  hr           6.627e-01  1.476e+00   0.449  0.65858
+  flwrs_count  5.460e-05  2.607e-05   2.095  0.04985 *
   ret_cnt      5.061e-01  4.604e-02  10.994 1.12e-09 ***
   max_flwrs   -5.815e-05  5.118e-05  -1.136  0.26995
   ---
@@ -152,7 +157,22 @@ Question 2
 
 * **hours**:
   The t value is considered very small and the p value is very large (>> .05).
-  It is clear that a 1st order regression line is not a good fit and hence
+  It is clear that a 1st order regression line is not a good fit. Or it may not
+  be significant variable at all. This makes sense considering the popularity
+  is more dependant on the specific date the event at rather than the hour.
+
+* **Followers Count**:
+  The t-value is a bit large but not too large and the p-value is slightly less
+  than 0.05. This is still a good sign that the variable has significance and
+  should be used.
+
+* **Retweet Count**:
+  Not only the t-value is large and the p-value << 0.05, the extremely strong
+  relationship is already self-evident in the plot of tweet count over retweet
+  count.
+
+* **Maximum number of followers**:
+
 
 
 .. [1] `How to Interpret Regression Analysis Results: P-values and Coefficients`_

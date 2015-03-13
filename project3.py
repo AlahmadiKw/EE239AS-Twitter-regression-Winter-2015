@@ -52,7 +52,7 @@ def get_stats(hashtag, time_bin=3600):
 	format = '%Y-%m-%d %H:%M:%S'
 	directory = 'ignore/tweet_data/'
 	file_l = file_len(directory + 'tweets_'+hashtag+'.txt')
-	headers = ['from', 'to', 'twt_count', 'flwrs_count', 'ret_cnt', 'max_flwrs', 'hr']
+	headers = ['from', 'to', 'twt_count', 'flwrs_count', 'ret_cnt', 'max_flwrs', 'date_hr', 'hr']
 	# initialize file to store data
 	with open('statistics_'+hashtag+'.csv', 'w') as f:
 		f_csv = csv.writer(f)
@@ -94,13 +94,14 @@ def get_stats(hashtag, time_bin=3600):
 				pass
 			else :
 				# append data to file
-				format = '%H:%M:%S'
+				format = '%Y-%m-%d-%H-%M-%S'
 				row = [start_time.strftime(format),
 				       (start_time+datetime.timedelta(seconds=time_bin)).strftime(format),
 				       cnt,
 				       flwrs_cnt,
 				       rt_cnt,
 				       max_flwrs,
+				       start_time.strftime('%Y-%m-%d-%H'),
 				       start_time.strftime('%H')]
 				with open('statistics_'+hashtag+'.csv', 'a') as f:
 					f_csv = csv.writer(f)
