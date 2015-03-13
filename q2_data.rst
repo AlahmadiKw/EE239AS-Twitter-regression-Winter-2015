@@ -10,7 +10,7 @@ Question 2
   python was used for data parsing and R Statistical language was used for data and regression analysis
 
 1. Problem Formulation
--------------------
+----------------------
 
 * Predicting the number of tweets in the next hour based on
   previous hours data.
@@ -27,7 +27,7 @@ Question 2
     * Total number of follows of all users who used the hashtag
 
 2. Data Collection
----------------
+------------------
 
 * The python ``get_stats`` in ``project3.py`` method parses the data such
   that it sums up the tweets data for every hour as follows:
@@ -39,7 +39,7 @@ Question 2
   - The hour in which the above data were collected at
 
 3. Initial Data Analysis
----------------------
+------------------------
 
 * Before forming our regression model, we first did some exploration
   of the data in order to find the best way to prepare the data for

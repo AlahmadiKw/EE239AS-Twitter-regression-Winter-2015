@@ -9,7 +9,7 @@
 rm(list=ls())
 
 # import csv data 
-dat <- read.table("statistics_#NFL.csv", header=TRUE, sep=',')
+dat <- read.table("for_mohammad_only/statistics_#NFL.csv", header=TRUE, sep=',')
 
 # sort by hours (24 hours)
 dat <- dat[order(dat$from),]

@@ -29,6 +29,16 @@ def file_len(fname):
             pass
     return i + 1
 
+#########################################
+# convert Time to decimal
+#########################################
+def time_to_decimal(time_):
+	format = '%H:%M:%S'
+	t = time_.strftime(format)
+	(h, m, s) = t.split(':')
+	result = int(h) * 3600 + int(m) * 60 + int(s)
+	return str(result)
+
 
 #########################################
 # Question 1
@@ -55,7 +65,7 @@ def get_stats(hashtag, time_bin=3600):
 		start_time = datetime.datetime.fromtimestamp(int(tweet['citation_date']))
 		cnt = 1
 		flwrs_cnt = int(tweet['author']['followers'])
-		rt_cnt = int(tweet['tweet']['retweet_count'])
+		rt_cnt = int(tweet['metrics']['citations']['total'])
 		max_flwrs= int(tweet['author']['followers'])
 
 		flag = False
@@ -78,7 +88,7 @@ def get_stats(hashtag, time_bin=3600):
 			if delta_sec <=time_bin:
 				cnt += 1
 				flwrs_cnt += int(tweet['author']['followers'])
-				rt_cnt += int(tweet['tweet']['retweet_count'])
+				rt_cnt += int(tweet['metrics']['citations']['total'])
 				if (max_flwrs < int(tweet['author']['followers'])):
 					max_flwrs = int(tweet['author']['followers'])
 				pass
@@ -99,7 +109,7 @@ def get_stats(hashtag, time_bin=3600):
 				start_time = datetime.datetime.fromtimestamp(int(tweet['citation_date']))
 				cnt = 1
 				flwrs_cnt = int(tweet['author']['followers'])
-				rt_cnt = int(tweet['tweet']['retweet_count'])
+				rt_cnt = int(tweet['metrics']['citations']['total'])
 				max_flwrs = int(tweet['author']['followers'])
 				pass
 	print '\n---> Done!'
