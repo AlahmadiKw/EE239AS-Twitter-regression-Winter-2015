@@ -52,7 +52,7 @@ def get_stats(hashtag, time_bin=3600):
 	format = '%Y-%m-%d %H:%M:%S'
 	directory = 'ignore/tweet_data/'
 	file_l = file_len(directory + 'tweets_'+hashtag+'.txt')
-	headers = ['from', 'to', 'twt_count', 'flwrs_count', 'ret_cnt', 'max_flwrs', 'date_hr', 'hr']
+	headers = ['from', 'to', 'twt_count', 'flwrs_count', 'ret_cnt', 'max_flwrs', 'date_hr', 'hr', 'favorite', 'momentum', 'accel', 'peak']
 	# initialize file to store data
 	with open('statistics_'+hashtag+'.csv', 'w') as f:
 		f_csv = csv.writer(f)
@@ -67,6 +67,10 @@ def get_stats(hashtag, time_bin=3600):
 		flwrs_cnt = int(tweet['author']['followers'])
 		rt_cnt = int(tweet['metrics']['citations']['total'])
 		max_flwrs= int(tweet['author']['followers'])
+		favorite_count= int(tweet['tweet']['favorite_count'])
+		momentum = int(tweet['metrics']['momentum'])
+		accel = int(tweet['metrics']['acceleration'])
+		peak = int(tweet['metrics']['peak'])
 
 		flag = False
 		i=0
@@ -89,6 +93,10 @@ def get_stats(hashtag, time_bin=3600):
 				cnt += 1
 				flwrs_cnt += int(tweet['author']['followers'])
 				rt_cnt += int(tweet['metrics']['citations']['total'])
+				favorite_count += int(tweet['tweet']['favorite_count'])
+				momentum += int(tweet['metrics']['momentum'])
+				accel += int(tweet['metrics']['acceleration'])
+				peak += int(tweet['metrics']['peak'])
 				if (max_flwrs < int(tweet['author']['followers'])):
 					max_flwrs = int(tweet['author']['followers'])
 				pass
@@ -102,7 +110,11 @@ def get_stats(hashtag, time_bin=3600):
 				       rt_cnt,
 				       max_flwrs,
 				       start_time.strftime('%Y-%m-%d-%H'),
-				       start_time.strftime('%H')]
+				       start_time.strftime('%H'),
+				       favorite_count,
+				       momentum,
+				       accel,
+				       peak]
 				with open('statistics_'+hashtag+'.csv', 'a') as f:
 					f_csv = csv.writer(f)
 					f_csv.writerow(row)
@@ -112,6 +124,10 @@ def get_stats(hashtag, time_bin=3600):
 				flwrs_cnt = int(tweet['author']['followers'])
 				rt_cnt = int(tweet['metrics']['citations']['total'])
 				max_flwrs = int(tweet['author']['followers'])
+				favorite_count= int(tweet['tweet']['favorite_count'])
+				momentum = int(tweet['metrics']['momentum'])
+				accel = int(tweet['metrics']['acceleration'])
+				peak = int(tweet['metrics']['peak'])
 				pass
 	print '\n---> Done!'
 
