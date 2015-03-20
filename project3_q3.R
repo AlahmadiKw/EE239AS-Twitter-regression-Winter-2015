@@ -5,6 +5,7 @@
 # Created on Mar 13 2015 
 # Last revision: 
 ##########################
+require('DAAG')
 
 rm(list=ls())
 
@@ -65,25 +66,40 @@ plot(dat$peak, dat$twt_count, type="p", lwd=1, col="black", pch=20,
 
 # create predictor
 fit <- lm(twt_count ~ flwrs_count + ret_cnt + momentum + peak + accel, dat)  # 1st order linear model 
+fit <- lm(twt_count ~  ret_cnt +accel + peak, dat)  # 1st order linear model 
 summary(fit)
 
 # residual plots
 # Good model must have a randomly distributed redisual plot. If there is a pattern
 # in the plot, the model must be reconsidered 
-plot(fit$fit, fit$res, ylab="Residuals", main="residuals against estimated cost")
+plot(fit$fit, fit$res, ylab="Residuals", main="residuals against tweet count")
 
-# leverage 
-# outlier test and normality
-jack <- rstudent(fit)
-plot(jack, ylab="Jacknife Residuals", main="Jacknife Residuals")
+####################################################
+#####  Question 4
+#####  CROSS VALIDATION 
+####################################################
 
-# influential obseration test 
-cook <- cooks.distance(fit)
-plot(cook,ylab="Coocs distance")
-influen <- match(cook[cook>.2],cook)
-influenctial_data <- dat[influen,]
+# accross akk periods
+cv.lm(df=dat, fit, m=10, main='Cross Validation Plot') # 10 fold cross-validation
 
-# assesing normality and outliers as well
-qqnorm(fit$res, ylab="Raw Residuals")
-qqline(fit$res)
-hist(fit$res,10)
+
+# divide to certain periods - SuperBowl
+rm(list=ls())
+
+# import csv data 
+dat <- read.table("for_mohammad_only/statistics_#SuperBowl_q3.csv", header=TRUE, sep=',')
+
+# sort by hours (24 hours)
+dat <- dat[order(dat$hr),]
+hours <- dat$hr 
+date_hr <- dat$date_hr
+dat[, 2] <- sapply(dat[, 2], as.character)  # convert factors to characters
+
+# Subset data into 3 dataset based on date
+## Before Feb. 1, 8:00 a.m. --> < 2015-02-08-00-00
+dat1 <- dat[ which(dat$to<'2015-02-01-08-00-00'), ]
+## Between Feb. 1, 8:00 a.m. and 8:00 p.m. -->  < 2015-02-01-08-00-00 && > 2015-02-01-20-00-00
+dat2 <- dat[ which(dat$to>'2015-02-01-08-00-00'), ]
+dat2 <- dat[ which(dat$to<'2015-02-01-20-00-00'), ]
+
+

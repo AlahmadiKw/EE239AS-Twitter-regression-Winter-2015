@@ -127,7 +127,7 @@ def get_stats(hashtag, time_bin=3600):
 				favorite_count= int(tweet['tweet']['favorite_count'])
 				momentum = int(tweet['metrics']['momentum'])
 				accel = int(tweet['metrics']['acceleration'])
-				peak = int(tweet['metrics']['peak'])
+				peak = int(tweet['metrics']['peak'])q
 				pass
 	print '\n---> Done!'
 
