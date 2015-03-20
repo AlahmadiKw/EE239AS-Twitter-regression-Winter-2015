@@ -10,7 +10,7 @@ require('DAAG')
 rm(list=ls())
 
 # import csv data 
-dat <- read.table("for_mohammad_only/statistics_#NFL_q3.csv", header=TRUE, sep=',')
+dat <- read.table("for_mohammad_only/statistics_#SuperBowl_q3.csv", header=TRUE, sep=',')
 
 # sort by hours (24 hours)
 dat <- dat[order(dat$hr),]
@@ -87,19 +87,53 @@ cv.lm(df=dat, fit, m=10, main='Cross Validation Plot') # 10 fold cross-validatio
 rm(list=ls())
 
 # import csv data 
-dat <- read.table("for_mohammad_only/statistics_#SuperBowl_q3.csv", header=TRUE, sep=',')
+dat <- read.table("for_mohammad_only/statistics_#NFL_q3.csv", header=TRUE, sep=',')
 
 # sort by hours (24 hours)
 dat <- dat[order(dat$hr),]
 hours <- dat$hr 
 date_hr <- dat$date_hr
 dat[, 2] <- sapply(dat[, 2], as.character)  # convert factors to characters
+dat[, 1] <- sapply(dat[, 1], as.character)  # convert factors to characters
 
 # Subset data into 3 dataset based on date
 ## Before Feb. 1, 8:00 a.m. --> < 2015-02-08-00-00
 dat1 <- dat[ which(dat$to<'2015-02-01-08-00-00'), ]
 ## Between Feb. 1, 8:00 a.m. and 8:00 p.m. -->  < 2015-02-01-08-00-00 && > 2015-02-01-20-00-00
-dat2 <- dat[ which(dat$to>'2015-02-01-08-00-00'), ]
+dat2 <- dat[ which(dat$from>'2015-02-01-08-00-00'), ]
 dat2 <- dat[ which(dat$to<'2015-02-01-20-00-00'), ]
+## After Feb. 1, 8:00 p.m. > 2015-02-01-20-00-00
+dat3 <- dat[ which(dat$to>'2015-02-01-20-00-00'), ]
+
+# Create 3 different regression models 
+fit1 <- lm(twt_count ~  ret_cnt +accel + peak, dat1)  # 1st order linear model 
+fit2 <- lm(twt_count ~  ret_cnt +accel + peak, dat2)  # 1st order linear model 
+fit3 <- lm(twt_count ~  ret_cnt +accel + peak, dat3)  # 1st order linear model 
+
+summary(fit1)
+summary(fit2)
+summary(fit3)
+
+cv.lm(df=dat1, fit1, m=10, main='Before Feb. 1, 8:00 a.m') # 10 fold cross-validation
+cv.lm(df=dat2, fit2, m=10, main='Between Feb. 1, 8:00 a.m. and 8:00 p.m') # 10 fold cross-validation
+cv.lm(df=dat3, fit3, m=10, main='After Feb. 1, 8:00 p.m.') # 10 fold cross-validation
 
 
+
+##########################################################################################
+##########################################################################################
+##########################################################################################
+##########################################################################################
+
+# import csv data 
+dat <- read.table("for_mohammad_only/statistics_sample10_period3.csv", header=TRUE, sep=',')
+
+# sort by hours (24 hours)
+dat <- dat[order(dat$hr),]
+hours <- dat$hr 
+date_hr <- dat$date_hr
+dat[, 2] <- sapply(dat[, 2], as.character)  # convert factors to characters
+dat[, 1] <- sapply(dat[, 1], as.character)  # convert factors to characters
+
+results = predict(fit3, dat, TRUE, interval = "prediction")
+results

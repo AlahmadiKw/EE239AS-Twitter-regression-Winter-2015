@@ -11,6 +11,8 @@ To make predictions for the test data, we use the regression model that
 corresponds to the correct time frame. We choose the regression model for the
 specific hashtag that is most accurate in each period.
 
+Since no information about which hashtag each test data is based on. based on our examination of the data, we made an assumption that the test data contains any hashtag related to the super bowl. Hence, we used the regression model that had the least total error and used it for the testing data.
+
 The following R method was used to test the data: ::
 
 	results = predict(fit3, dat, TRUE, interval = "prediction")
