@@ -138,12 +138,133 @@ NFL Hashtag
 	  ms
 	4392
 
-.. image:: img/q4_plot.png
+.. image:: img/q4_NFL_plot.png
    :height: 600
 
 Super Bowl Hashtag
 ------------------
 
+::
+
+	Analysis of Variance Table
+
+	Response: twt_count
+	          Df Sum Sq Mean Sq F value  Pr(>F)
+	ret_cnt    1 564486  564486   194.2 9.3e-12 ***
+	accel      1 970386  970386   333.9 6.0e-14 ***
+	peak       1 225468  225468    77.6 2.6e-08 ***
+	Residuals 20  58129    2906
+	---
+	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+
+	fold 1
+	Observations in test set: 2
+	               20     23
+	Predicted   662.2 354.88
+	cvpred      673.3 360.23
+	twt_count   596.0 358.20
+	CV residual -77.3  -2.03
+
+	Sum of squares = 5974    Mean square = 2987    n = 2
+
+	fold 2
+	Observations in test set: 3
+	                14     21    24
+	Predicted   420.65 437.40 277.1
+	cvpred      419.48 436.20 275.6
+	twt_count   414.60 442.71 289.4
+	CV residual  -4.88   6.51  13.8
+
+	Sum of squares = 255    Mean square = 85.1    n = 3
+
+	fold 3
+	Observations in test set: 3
+	                5     6    18
+	Predicted   314.2 345.2 681.5
+	cvpred      309.5 338.9 651.1
+	twt_count   379.0 323.2 732.3
+	CV residual  69.5 -15.7  81.2
+
+	Sum of squares = 11679    Mean square = 3893    n = 3
+
+	fold 4
+	Observations in test set: 3
+	                1     12    17
+	Predicted   316.5 1202.0 684.8
+	cvpred      298.1 1171.4 678.5
+	twt_count   382.5 1267.2 630.6
+	CV residual  84.4   95.8 -47.8
+
+	Sum of squares = 18595    Mean square = 6198    n = 3
+
+	fold 5
+	Observations in test set: 3
+	                3    10    11
+	Predicted   333.9 591.2 650.1
+	cvpred      332.2 585.9 646.5
+	twt_count   273.4 675.5 634.6
+	CV residual -58.8  89.6 -11.9
+
+	Sum of squares = 11622    Mean square = 3874    n = 3
+
+	fold 6
+	Observations in test set: 2
+	                7    22
+	Predicted   410.9 394.3
+	cvpred      414.5 397.7
+	twt_count   346.7 412.3
+	CV residual -67.8  14.6
+
+	Sum of squares = 4808    Mean square = 2404    n = 2
+
+	fold 7
+	Observations in test set: 2
+	                2     15
+	Predicted   251.2  981.7
+	cvpred      253.3  963.6
+	twt_count   276.8 1057.0
+	CV residual  23.6   93.4
+
+	Sum of squares = 9283    Mean square = 4641    n = 2
+
+	fold 8
+	Observations in test set: 2
+	                4   13
+	Predicted   321.4 1192
+	cvpred      377.2 1223
+	twt_count   297.0 1095
+	CV residual -80.2 -128
+
+	Sum of squares = 22840    Mean square = 11420    n = 2
+
+	fold 9
+	Observations in test set: 2
+	                8    16
+	Predicted   319.3 823.7
+	cvpred      323.6 825.0
+	twt_count   274.8 803.7
+	CV residual -48.8 -21.4
+
+	Sum of squares = 2835    Mean square = 1417    n = 2
+
+	fold 10
+	Observations in test set: 2
+	                9    19
+	Predicted   680.7 629.8
+	cvpred      680.6 630.1
+	twt_count   700.2 613.4
+	CV residual  19.5 -16.7
+
+	Sum of squares = 662    Mean square = 331    n = 2
+
+	Overall (Sum over all 2 folds)
+	  ms
+	3690
+
+.. image:: img/q4_superbowl_plot.png
+   :height: 600
 
 The above figure shows a plot of the cross validation results.
 
