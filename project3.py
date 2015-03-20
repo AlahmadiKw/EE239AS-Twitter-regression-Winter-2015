@@ -9,6 +9,7 @@ import sys
 # import os
 # import argparse
 import copy
+import os
 
 #########################################
 # Convert unix time stamps to Y-M-D H:M:S
@@ -47,18 +48,18 @@ def time_to_decimal(time_):
 #   hashtag: ex: '#gohawks'
 #   time_bin: time granularity in seconds (size of time bins)
 #########################################
-def get_stats(hashtag, time_bin=3600):
+def get_stats(hashtag, time_bin=3600, directory = 'ignore/tweet_data/'):
 	print '---> Processing ' + hashtag
 	format = '%Y-%m-%d %H:%M:%S'
-	directory = 'ignore/tweet_data/'
-	file_l = file_len(directory + 'tweets_'+hashtag+'.txt')
+
+	file_l = file_len(directory + '/' +hashtag)
 	headers = ['from', 'to', 'twt_count', 'flwrs_count', 'ret_cnt', 'max_flwrs', 'date_hr', 'hr', 'favorite', 'momentum', 'accel', 'peak']
 	# initialize file to store data
 	with open('statistics_'+hashtag+'.csv', 'w') as f:
 		f_csv = csv.writer(f)
 		f_csv.writerow(headers)
 
-	with open(directory+'tweets_'+hashtag+'.txt', 'r') as f:
+	with open(directory+ '/' +hashtag, 'r') as f:
 
 		# load first tweet
 		tweet = json.loads(f.readline())
@@ -127,11 +128,17 @@ def get_stats(hashtag, time_bin=3600):
 				favorite_count= int(tweet['tweet']['favorite_count'])
 				momentum = int(tweet['metrics']['momentum'])
 				accel = int(tweet['metrics']['acceleration'])
-				peak = int(tweet['metrics']['peak'])q
+				peak = int(tweet['metrics']['peak'])
 				pass
 	print '\n---> Done!'
 
 
 if __name__ == '__main__':
-	get_stats('#SuperBowl')
-	get_stats('#NFL')
+	# get_stats('#SuperBowl')
+	# get_stats('#NFL')
+	directory = 'ignore/test_data'
+	files = os.listdir(directory)
+	for f in files:
+		get_stats(f, directory=directory)
+
+
