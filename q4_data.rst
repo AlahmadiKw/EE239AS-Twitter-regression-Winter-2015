@@ -16,7 +16,12 @@ executing the following command on our data in R: ::
 
   cv.lm(df=dat, fit, m=10) # 10 fold cross-validation
 
-The results are shown below: ::
+The results are shown below:
+
+NFL Hashtag
+-----------
+
+::
 
 	Analysis of Variance Table
 
@@ -136,11 +141,156 @@ The results are shown below: ::
 .. image:: img/q4_plot.png
    :height: 600
 
+Super Bowl Hashtag
+------------------
+
 
 The above figure shows a plot of the cross validation results.
 
-WE WILL INSER MORE TEXT LATER HERE
+
 
 Cross Validation for Different Regression Models Based on Certain Periods
 =========================================================================
 
+We have divided the data for both NFL and Super bowl into three time frames as
+follows:
+
+1. Before Feb. 1, 8:00 a.m.
+2. Between Feb. 1, 8:00 a.m. and 8:00 p.m.
+3. After Feb. 1, 8:00 p.m.
+
+For each data set, we build a regression model. A total of three regression
+models are generated. Results for a ``summary(fit)`` command for each regression
+model are shown below:
+
+NFL Hashtag
+-----------
+
+::
+
+	lm(formula = twt_count ~ ret_cnt + accel + peak, data = dat1)
+
+	Residuals:
+	   Min     1Q Median     3Q    Max
+	-526.4  -77.9    2.2   43.1  729.4
+
+	Coefficients:
+	             Estimate Std. Error t value Pr(>|t|)
+	(Intercept) -5.42e+00   4.39e+01   -0.12   0.9026
+	ret_cnt      4.53e-01   3.51e-02   12.89  7.5e-15 ***
+	accel        2.82e-01   9.69e-02    2.91   0.0063 **
+	peak         6.88e-09   2.09e-09    3.28   0.0023 **
+	---
+	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+	Residual standard error: 231 on 35 degrees of freedom
+	Multiple R-squared:  0.994,	Adjusted R-squared:  0.993
+	F-statistic: 1.92e+03 on 3 and 35 DF,  p-value: <2e-16
+
+::
+
+	lm(formula = twt_count ~ ret_cnt + accel + peak, data = dat2)
+
+	Residuals:
+	   Min     1Q Median     3Q    Max
+	-526.4  -77.9    2.2   43.1  729.4
+
+	Coefficients:
+	             Estimate Std. Error t value Pr(>|t|)
+	(Intercept) -5.42e+00   4.39e+01   -0.12   0.9026
+	ret_cnt      4.53e-01   3.51e-02   12.89  7.5e-15 ***
+	accel        2.82e-01   9.69e-02    2.91   0.0063 **
+	peak         6.88e-09   2.09e-09    3.28   0.0023 **
+	---
+	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+	Residual standard error: 231 on 35 degrees of freedom
+	Multiple R-squared:  0.994,	Adjusted R-squared:  0.993
+	F-statistic: 1.92e+03 on 3 and 35 DF,  p-value: <2e-16
+
+::
+
+	lm(formula = twt_count ~ ret_cnt + accel + peak, data = dat3)
+
+	Residuals:
+	   Min     1Q Median     3Q    Max
+	-637.2  -36.6   11.4   60.9  272.5
+
+	Coefficients:
+	             Estimate Std. Error t value Pr(>|t|)
+	(Intercept)  1.43e+02   1.63e+01    8.77  2.4e-14 ***
+	ret_cnt      4.19e-01   4.06e-02   10.34  < 2e-16 ***
+	accel       -9.76e-02   4.45e-02   -2.19     0.03 *
+	peak         1.11e-08   2.20e-09    5.02  2.0e-06 ***
+	---
+	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+	Residual standard error: 121 on 111 degrees of freedom
+	Multiple R-squared:     1,	Adjusted R-squared:     1
+	F-statistic: 3.75e+05 on 3 and 111 DF,  p-value: <2e-16
+
+Super Bowl Hashtag
+------------------
+
+::
+
+	lm(formula = twt_count ~ ret_cnt + accel + peak, data = dat1)
+
+	Residuals:
+	    Min      1Q  Median      3Q     Max
+	-1525.5  -157.1  -101.4    47.5  1466.6
+
+	Coefficients:
+	             Estimate Std. Error t value Pr(>|t|)
+	(Intercept)  1.42e+02   1.10e+02    1.30  0.20759
+	ret_cnt      1.12e+00   8.31e-02   13.49  2.1e-12 ***
+	accel       -2.69e+00   6.16e-01   -4.37  0.00022 ***
+	peak        -3.35e-08   4.28e-09   -7.83  6.2e-08 ***
+	---
+	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+	Residual standard error: 511 on 23 degrees of freedom
+	Multiple R-squared:  0.996,	Adjusted R-squared:  0.995
+	F-statistic: 1.84e+03 on 3 and 23 DF,  p-value: <2e-16
+
+::
+
+	lm(formula = twt_count ~ ret_cnt + accel + peak, data = dat2)
+
+	Residuals:
+	   Min     1Q Median     3Q    Max
+	 -1775   -161   -105    108   1245
+
+	Coefficients:
+	             Estimate Std. Error t value Pr(>|t|)
+	(Intercept)  1.50e+02   1.14e+02    1.32  0.20079
+	ret_cnt      1.07e+00   7.96e-02   13.40  1.2e-12 ***
+	accel       -2.29e+00   5.88e-01   -3.89  0.00069 ***
+	peak        -3.09e-08   4.13e-09   -7.47  1.0e-07 ***
+	---
+	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+	Residual standard error: 530 on 24 degrees of freedom
+	Multiple R-squared:  0.995,	Adjusted R-squared:  0.995
+	F-statistic: 1.7e+03 on 3 and 24 DF,  p-value: <2e-16
+
+::
+
+	lm(formula = twt_count ~ ret_cnt + accel + peak, data = dat3)
+
+	Residuals:
+	   Min     1Q Median     3Q    Max
+	 -4874    -59     21    110   5618
+
+	Coefficients:
+	             Estimate Std. Error t value Pr(>|t|)
+	(Intercept)  6.10e+01   7.23e+01    0.84    0.401
+	ret_cnt      2.68e-01   2.73e-02    9.84  < 2e-16 ***
+	accel       -2.95e-02   1.74e-02   -1.69    0.093 .
+	peak         6.48e-09   1.14e-09    5.70  9.8e-08 ***
+	---
+	Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+	Residual standard error: 756 on 113 degrees of freedom
+	Multiple R-squared:     1,	Adjusted R-squared:     1
+	F-statistic: 7.02e+05 on 3 and 113 DF,  p-value: <2e-16
